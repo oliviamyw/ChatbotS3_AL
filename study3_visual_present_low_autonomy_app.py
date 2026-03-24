@@ -1,6 +1,6 @@
 # =========================
 # Style Loom Chatbot Experiment
-# STUDY 3 - VISUAL PRESENT × HIGH AUTONOMY
+# STUDY 3 - VISUAL PRESENT × LOW AUTONOMY
 # =========================
 
 import os
@@ -276,7 +276,7 @@ def extract_last_question(text_block: str) -> Optional[str]:
 
 
 def answer_fallback() -> str:
-    return "The system can assist with that. Please briefly describe what happened so the issue can be processed."
+    return "Please briefly describe what happened so the issue can be reviewed and the next steps can be provided."
 
 
 # -------------------------
@@ -296,13 +296,17 @@ You are {CHATBOT_NAME}, Style Loom's virtual assistant in a controlled customer-
 This condition is LOW AUTONOMY.
 Describe actions as if decisions are made by the system or company policies, not by you.
 
-Use expressions such as:
+Use low-autonomy phrasing such as:
 - Our system reviewed
+- The system reviewed
 - The system processed
 - Company policy indicates
 - According to company procedures
-- The system can assist
+- Based on store policy
+- The request can be submitted
+- The issue can be reviewed
 - Support can be provided
+- Assistance can be provided
 
 Do not use first-person decision-making expressions such as:
 - I decided
@@ -310,6 +314,14 @@ Do not use first-person decision-making expressions such as:
 - I approved
 - I processed
 - I can help
+- I can guide you
+
+Variation rule:
+- Maintain a low-autonomy style throughout the conversation.
+- Do not repeat the exact same system-centered phrase in consecutive responses when a natural alternative is available.
+- Vary low-autonomy wording across turns while keeping the same meaning and tone.
+- Keep the language professional, clear, and consistent.
+- Do not make the wording overly varied or stylistically dramatic.
 
 Use the BUSINESS CONTEXT as the source of truth for store procedures and issue-handling guidance.
 
@@ -412,7 +424,7 @@ st.session_state.last_user_selected_issue = selected
 
 if selected != "— Select an issue —" and selected != prev_selected:
     st.session_state.active_issue = selected
-    confirm_text = f"Support can be provided for **{selected}**. Please describe what happened."
+    confirm_text = f"Please describe what happened with **{selected}** so the issue can be reviewed."
     st.session_state.chat_history.append((chatbot_speaker(), confirm_text))
 
 st.divider()
@@ -536,3 +548,4 @@ if user_text and not st.session_state.ended:
     st.session_state.bot_turns += 1
 
     st.rerun()
+
